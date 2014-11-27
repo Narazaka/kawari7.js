@@ -62,7 +62,7 @@ cleanxx :
 	-rm config.hxx
 
 clean : cleanxx
-	-rm $(KAWAOBJ) $(SHIOOBJ) $(CRYPTOBJ) ./shiori_dll/shiori.o ./tool/kosui.o ./tool/kdb.o ./tool/kawari_encode.o 
+	-rm $(KAWAOBJ) $(SHIOOBJ) $(CRYPTOBJ) ./shiori_dll/shiori.o ./shiori_js/shiori.o ./tool/kosui.o ./tool/kdb.o ./tool/kawari_encode.o 
 
 cleanall : clean
 	-rm $(ALLTARGET)
