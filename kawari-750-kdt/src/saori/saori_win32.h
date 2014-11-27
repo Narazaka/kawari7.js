@@ -11,7 +11,19 @@
 #ifndef SAORI_WIN32_H
 #define SAORI_WIN32_H
 //---------------------------------------------------------------------------
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 #include <windows.h>
+#define SHIORI_MALLOC(len) ::GlobalAlloc(GMEM_FIXED, len)
+#define SHIORI_FREE(ptr) ::GlobalFree((HGLOBAL)ptr)
+#else
+#include <dlfcn.h>
+typedef unsigned long HMODULE;
+typedef char* HGLOBAL;
+typedef void* FARPROC;
+#define SHIORI_MALLOC(len) malloc(len)
+#define SHIORI_FREE(ptr) free((void *)ptr)
+#define BOOL int
+#endif
 //---------------------------------------------------------------------------
 #include "config.h"
 //---------------------------------------------------------------------------

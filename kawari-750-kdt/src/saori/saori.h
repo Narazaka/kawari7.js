@@ -19,7 +19,7 @@
 //---------------------------------------------------------------------------
 // 参照カウントはハンドルに基づいてBindingが管理すること
 // WindowsはOSが管理している。
-#if defined(WIN32) || defined(_WIN32)
+#if defined(WIN32) || defined(_WIN32) || defined(EMSCRIPTEN)
 #	include "saori/saori_win32.h"
 typedef TSaoriBindingW32 TSaoriBinding;
 #elif defined(linux) || defined(__linux__)

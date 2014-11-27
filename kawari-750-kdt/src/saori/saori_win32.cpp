@@ -8,7 +8,9 @@
 //  2002.04.15  Phase 8.0.0   えびさわさんバージョンを参考に導入
 //
 //---------------------------------------------------------------------------
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 #include <windows.h>
+#endif
 //---------------------------------------------------------------------------
 #include "config.h"
 #include "saori/saori_win32.h"
@@ -25,9 +27,13 @@ using namespace std;
 namespace {
 	FARPROC getpadd(HMODULE hm, const char *p){
 		FARPROC	lpfn;
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 	
-		lpfn = GetProcAddress(hm, p + 1);
-		if (!lpfn) lpfn = GetProcAddress(hm, p);
+		lpfn = (FARPROC)GetProcAddress(hm, p + 1);
+		if (!lpfn) lpfn = (FARPROC)GetProcAddress(hm, p);
+#else
+		lpfn = (FARPROC)::dlsym((void *)hm, p);
+#endif
 		return lpfn;
 	}
 	map<HMODULE, unsigned int> loadcount;
@@ -42,7 +48,11 @@ bool TSaoriBindingW32::Load (const string &path){
 		if(fn[i]=='/') fn[i]='\\';
 	dllpath=fn;
 
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 	HMODULE hm=LoadLibrary(fn.c_str());
+#else
+	HMODULE hm = (HMODULE)::dlopen(fn.c_str(), RTLD_LAZY);
+#endif
 	if (!hm){
 #ifdef __KAWARI__
 		Logger.GetStream(LOG_ERROR) << "[SAORI Win32] DLL ("+fn+") load failed." << endl;
@@ -58,7 +68,11 @@ bool TSaoriBindingW32::Load (const string &path){
 #ifdef __KAWARI__
 		Logger.GetStream(LOG_ERROR) << "[SAORI Win32] import 'request' from ("+fn+") failed." << endl;
 #endif
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 		FreeLibrary(hm);
+#else
+		::dlclose((void *)hm);
+#endif
 		return false;
 	}
 
@@ -78,7 +92,7 @@ bool TSaoriBindingW32::Load (const string &path){
 			basepath=fn.substr(0, pos+1);
 		}
 		long len=basepath.size();
-		HGLOBAL h=GlobalAlloc(GMEM_FIXED, len);
+		HGLOBAL h=(HGLOBAL)SHIORI_MALLOC(len);
 		if (!h) return false;
 		basepath.copy((char *)h, len);
 		if (!(func_load(h, len)))
@@ -95,7 +109,11 @@ TSaoriBindingW32::~TSaoriBindingW32 (){
 	if (hModule){
 		if (func_unload)
 			(func_unload)();
+#if defined(WIN32)||defined(_WIN32)||defined(_Windows)||defined(_MSC_VER)
 		FreeLibrary(hModule);
+#else
+		::dlclose((void *)hModule);
+#endif
 		if (loadcount.count(hModule)){
 			--loadcount[hModule];
 			if (!loadcount[hModule])
@@ -116,7 +134,7 @@ string TSaoriBindingW32::Request(const string &req){
 	long	len;
 	
 	len = (long)(req.size());
-	h = GlobalAlloc(GMEM_FIXED, len);
+	h = (HGLOBAL)SHIORI_MALLOC(len);
 	if (!h) return ("");
 	req.copy((char *)h, len);
 	
@@ -124,7 +142,7 @@ string TSaoriBindingW32::Request(const string &req){
 	
 	if (h) {
 		res.assign((const char *)h, len);
-		GlobalFree(h);
+		SHIORI_FREE(h);
 	}
 
 	return res;
