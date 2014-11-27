@@ -1,0 +1,34 @@
+{
+	"name": "kawari7.js",
+	"description": "Programmable pseudo AI KAWARI 7 on JavaScript",
+	"main": "kawari-750-kdt/src/shiori_js/kawari7.js",
+	"ignore": [
+		"**/.*",
+		"bower_components",
+		"node_modules",
+		"npm-debug.log",
+		"coverage",
+		"kawari-750-kdt/contrib",
+		"kawari-750-kdt/GhostBuilder",
+		"kawari-750-kdt/SampleDict",
+		"kawari-750-kdt/*.exe",
+		"kawari-750-kdt/*.dll",
+		"kawari-750-kdt/src/*.*",
+		"kawari-750-kdt/src/include",
+		"kawari-750-kdt/src/kis",
+		"kawari-750-kdt/src/libkawari",
+		"kawari-750-kdt/src/misc",
+		"kawari-750-kdt/src/saori",
+		"kawari-750-kdt/src/shiori",
+		"kawari-750-kdt/src/shiori_dll",
+		"kawari-750-kdt/src/shiori_so",
+		"kawari-750-kdt/src/tool",
+		"kawari-750-kdt/src/vc_kawari",
+		"kawari-750-kdt/src/shiori_js/*.cpp"
+	],
+	"author": {
+		"name": "narazaka",
+		"url": "http://narazaka.net/"
+	},
+	"license": "MIT"
+}

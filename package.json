@@ -1,0 +1,16 @@
+{
+	"name": "kawari7.js",
+	"version": "0.0.1",
+	"description": "Programmable pseudo AI KAWARI 7 on JavaScript",
+	"homepage": "",
+	"main": "kawari-750-kdt/src/shiori_js/kawari7.js",
+	"author": {
+		"name": "narazaka",
+		"url": "http://narazaka.net/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Narazaka/kawari.js.git"
+	}
+}
