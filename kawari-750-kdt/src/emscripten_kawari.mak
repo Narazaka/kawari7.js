@@ -26,12 +26,12 @@ LIBS   =
 
 ## TARGETS ##
 
-ALLTARGET = ./shiori_js/shiori.js ./tool/kosui.exe ./tool/kawari_encode.exe
+ALLTARGET = ./shiori_js/kawari7.js ./tool/kosui.exe ./tool/kawari_encode.exe
 
 all : $(ALLTARGET)
 
 
-./shiori_js/shiori.js : ./shiori_js/shiori.o $(SHIOOBJ) $(KAWAOBJ)
+./shiori_js/kawari7.js : ./shiori_js/shiori.o $(SHIOOBJ) $(KAWAOBJ)
 	em++ -o $@ $? $(LIBS) -shared -O3 --memory-init-file 0 --pre-js em-pre.js --post-js em-post.js -s EXPORTED_FUNCTIONS=$(EXPORTED_FUNCTIONS) -s ALLOW_MEMORY_GROWTH=1 -s DISABLE_EXCEPTION_CATCHING=0
 
 
