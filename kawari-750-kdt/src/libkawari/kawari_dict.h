@@ -42,6 +42,7 @@ private:
 	TWordCollection<string,less<string> > EntryCollection;
 
 	// 純粋仮想単語(PVW:PureVirtualWord)とエントリの対応表
+
 	map<TWordID,TEntryID> PVWToEntry;
 	map<TEntryID,TWordID> EntryToPVW;
 

@@ -34,6 +34,7 @@ private:
 	TWordPointerCollection<TKawariMatch_base,TKawariMatch_baseP_Less> MatchCollection;
 
 	// マッチエントリとエントリの対応表
+
 	map<TMatchID,TEntryID> MatchToEntry;
 	map<TEntryID,TMatchID> EntryToMatch;
 
