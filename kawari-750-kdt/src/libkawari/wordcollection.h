@@ -63,7 +63,7 @@ template<class T,class Compare>
 class TWordPointerCollection : public TWordCollection<T*, Compare>{
 public:
     ~TWordPointerCollection (){
-        for (vector<T*>::iterator it=WordList.begin(); it < WordList.end(); it++){
+        for (typename vector<T*>::iterator it=this->WordList.begin(); it < this->WordList.end(); it++){
             delete (*it);
         }
     }
@@ -79,8 +79,8 @@ bool TWordCollection<T,Compare>::Insert(const T& word,unsigned int *id_)
 
 	if(id!=0) return(false);
 
-	WordList.push_back(word);
-	id=WordList.size();
+	this->WordList.push_back(word);
+	id=this->WordList.size();
 
 	WordIDMap[word]=id;
 
@@ -93,16 +93,16 @@ bool TWordCollection<T,Compare>::Insert(const T& word,unsigned int *id_)
 template<class T,class Compare>
  const T* TWordCollection<T,Compare>::Find(unsigned int id) const
 {
-	if((id==0)||(WordList.size()<=(id-1))) return(NULL);
+	if((id==0)||(this->WordList.size()<=(id-1))) return(NULL);
 
-	return(&(WordList[id-1]));
+	return(&(this->WordList[id-1]));
 }
 //---------------------------------------------------------------------------
 // ƒf[ƒ^->ID
 template<class T,class Compare>
  unsigned int TWordCollection<T,Compare>::Find(const T& word) const
 {
-	TWordIDMap::const_iterator it=WordIDMap.find(word);
+	typename TWordIDMap::const_iterator it=WordIDMap.find(word);
 
 	return((it!=WordIDMap.end())?it->second:0);
 }

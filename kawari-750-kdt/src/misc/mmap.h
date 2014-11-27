@@ -18,11 +18,11 @@ public:
 	DataType& operator[](const KeyType& key)
 	{
 //		iterator it=lower_bound(key);
-		std::multimap<KeyType,DataType>::iterator it;	// gcc‘Îô
-		it=lower_bound(key);
+		typename std::multimap<KeyType,DataType>::iterator it;	// gcc‘Îô
+		it=this->lower_bound(key);
 		// 2001/12/16 suikyo@yk.rim.or.jp : imortal entry bug
-//		if(it==end()) it=insert(pair<KeyType,DataType>(key,DataType()));
-		if(it==upper_bound(key)) it=insert(pair<KeyType,DataType>(key,DataType()));
+//		if(it==end()) it=insert(std::pair<KeyType,DataType>(key,DataType()));
+		if(it==this->upper_bound(key)) it=this->insert(std::pair<KeyType,DataType>(key,DataType()));
 		return((*it).second);
 	}
 /*
@@ -36,7 +36,7 @@ public:
 */
 	void Add(const KeyType& key,const DataType& data)
 	{
-		insert(pair<KeyType,DataType>(key,data));
+		this->insert(std::pair<KeyType,DataType>(key,data));
 	}
 
 };
