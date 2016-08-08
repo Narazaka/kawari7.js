@@ -58,6 +58,11 @@ So use the wrapper module, [nativeshiori](https://github.com/Narazaka/nativeshio
     
     </script>
 
+Build
+--------------------------------
+
+    make -R
+
 LICENSE
 --------------------------------
 
